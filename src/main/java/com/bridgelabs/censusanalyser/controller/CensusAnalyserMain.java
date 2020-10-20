@@ -22,8 +22,7 @@ public class CensusAnalyserMain {
 
 	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 		int noOfEntries = 0;
-		try {
-			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
+		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
 			CsvToBeanBuilder<IndiaCensusCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
 			csvToBeanBuilder.withType(IndiaCensusCSV.class);
 			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
@@ -34,10 +33,10 @@ public class CensusAnalyserMain {
 				censusCSVIterator.next();
 			}
 		} catch (NoSuchFileException e) {
-			throw new CensusAnalyserException(e.getMessage(),
+			throw new CensusAnalyserException("File not exists",
 					CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
 		} catch (RuntimeException e) {
-			throw new CensusAnalyserException(e.getMessage(),
+			throw new CensusAnalyserException("File data mismatch with census data",
 					CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM);
 		} catch (IOException e) {
 			e.printStackTrace();
