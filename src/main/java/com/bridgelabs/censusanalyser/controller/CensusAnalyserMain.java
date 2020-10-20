@@ -33,9 +33,14 @@ public class CensusAnalyserMain {
 				noOfEntries++;
 				censusCSVIterator.next();
 			}
-		} catch (Exception e) {
+		} catch (NoSuchFileException e) {
 			throw new CensusAnalyserException(e.getMessage(),
 					CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+		} catch (RuntimeException e) {
+			throw new CensusAnalyserException(e.getMessage(),
+					CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return noOfEntries;
 	}
