@@ -18,13 +18,9 @@ public class CensusAnalyserMain {
 	public static void main(String[] args) {
 		// welcome message
 		LOGGER.info("Welcome to Indian States Census Analyser!");
-
-		CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
-		censusAnalyserMain.loadIndiaCensusData(
-				"D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCensusData.csv");
 	}
 
-	public int loadIndiaCensusData(String csvFilePath) {
+	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
 		int noOfEntries = 0;
 		try {
 			Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
@@ -37,9 +33,9 @@ public class CensusAnalyserMain {
 				noOfEntries++;
 				censusCSVIterator.next();
 			}
-			LOGGER.info("No. of entries in the file : " + noOfEntries);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new CensusAnalyserException(e.getMessage(),
+					CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
 		}
 		return noOfEntries;
 	}
