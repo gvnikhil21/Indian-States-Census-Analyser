@@ -48,4 +48,17 @@ public class CensusAnalyserMain {
 		}
 		return noOfEntries - 1;
 	}
+
+	public int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException {
+		int noOfEntries = 0;
+		try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));) {
+			String line = "";
+			while ((line = reader.readLine()) != null) {
+				noOfEntries++;
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return noOfEntries - 1;
+	}
 }
