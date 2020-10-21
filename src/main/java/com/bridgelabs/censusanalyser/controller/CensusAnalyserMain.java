@@ -54,6 +54,9 @@ public class CensusAnalyserMain {
 		try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));) {
 			String line = "";
 			while ((line = reader.readLine()) != null) {
+				if (line.contains(",") == false)
+					throw new CensusAnalyserException("Wrong Delimiter",
+							CensusAnalyserException.ExceptionType.DELIMITER_PROBLEM);
 				if (noOfEntries == 0) {
 					String checkArray[] = line.trim().split(",");
 					if (!checkArray[0].equals("SrNo") || !checkArray[1].equals("State Name")
