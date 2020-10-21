@@ -73,4 +73,15 @@ public class CensusAnalyserTest {
 			LOGGER.info("Test performed for given correct CSV file but incorrect header");
 		}
 	}
+
+	@Test
+	public void givenIndianStateCSVFile_ShouldReturnCorrectEntries() {
+		try {
+			CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
+			int noOfEntries = censusAnalyserMain.loadIndiaStateCodeData(INDIAN_STATECODES_CSVFILE);
+			Assert.assertEquals(37, noOfEntries);
+			LOGGER.info("Test performed for no. of entries in given CSV file for state data");
+		} catch (Exception e) {
+		}
+	}
 }
