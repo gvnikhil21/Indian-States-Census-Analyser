@@ -16,6 +16,7 @@ public class CensusAnalyserTest {
 	private static final String INDIAN_STATECODES_CSVFILE = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCode.csv";
 	private static final String INDIAN_CENSUS_WRONG_DELIMITER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\InidaStateCensusFaultDelimiter.csv";
 	private static final String INDIAN_CENSUS_WRONG_HEADER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCensusWrongHeader.csv";
+	private static final String INDIAN_STATE_CODE_WRONG_DELIMITER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCodeFaultDelimiter.csv";
 
 	@Test
 	public void givenIndianCensusCSVFile_ShouldReturnCorrectEntries() {
@@ -106,6 +107,17 @@ public class CensusAnalyserTest {
 		} catch (CensusAnalyserException e) {
 			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM, e.type);
 			LOGGER.info("Test performed for given correct CSV file but inconsistent type data for state data");
+		}
+	}
+
+	@Test
+	public void givenIndianStateCSVFile_WhenCorrect_ButIncorrectDelimiter_ShouldThrowCensusAnalyserException() {
+		try {
+			CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
+			censusAnalyserMain.loadIndiaStateCodeData(INDIAN_STATE_CODE_WRONG_DELIMITER);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_PROBLEM, e.type);
+			LOGGER.info("Test performed for given correct CSV file but incorrect delimiter for state data");
 		}
 	}
 
