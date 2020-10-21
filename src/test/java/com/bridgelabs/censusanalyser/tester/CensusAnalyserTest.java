@@ -97,4 +97,16 @@ public class CensusAnalyserTest {
 			LOGGER.info("Test performed for given wrong CSV file for state data");
 		}
 	}
+
+	@Test
+	public void givenIndianStateCSVFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException() {
+		try {
+			CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
+			censusAnalyserMain.loadIndiaStateCodeData(INDIA_CENSUS_CSV_FILE_PATH);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM, e.type);
+			LOGGER.info("Test performed for given correct CSV file but inconsistent type data for state data");
+		}
+	}
+
 }
