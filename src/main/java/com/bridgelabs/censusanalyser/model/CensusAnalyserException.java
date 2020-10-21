@@ -2,7 +2,7 @@ package com.bridgelabs.censusanalyser.model;
 
 public class CensusAnalyserException extends Exception {
 	public enum ExceptionType {
-		CENSUS_FILE_PROBLEM, CENSUS_TYPE_PROBLEM, DELIMITER_PROBLEM
+		CENSUS_FILE_PROBLEM, CENSUS_TYPE_PROBLEM, DELIMITER_PROBLEM, HEADER_PROBLEM
 	}
 
 	public ExceptionType type;
