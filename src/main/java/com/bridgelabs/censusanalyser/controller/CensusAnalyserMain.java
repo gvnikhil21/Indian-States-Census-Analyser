@@ -59,6 +59,9 @@ public class CensusAnalyserMain {
 							CensusAnalyserException.ExceptionType.DELIMITER_PROBLEM);
 				if (noOfEntries == 0) {
 					String checkArray[] = line.trim().split(",");
+					if (checkArray.length != 4)
+						throw new CensusAnalyserException("Wrong header",
+								CensusAnalyserException.ExceptionType.HEADER_PROBLEM);
 					if (!checkArray[0].equals("SrNo") || !checkArray[1].equals("State Name")
 							|| !checkArray[2].equals("TIN") || !checkArray[3].equals("StateCode"))
 						throw new CensusAnalyserException("Wrong class type",
