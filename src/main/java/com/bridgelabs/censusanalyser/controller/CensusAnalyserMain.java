@@ -54,6 +54,13 @@ public class CensusAnalyserMain {
 		try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));) {
 			String line = "";
 			while ((line = reader.readLine()) != null) {
+				if (noOfEntries == 0) {
+					String checkArray[] = line.trim().split(",");
+					if (!checkArray[0].equals("SrNo") || !checkArray[1].equals("State Name")
+							|| !checkArray[2].equals("TIN") || !checkArray[3].equals("StateCode"))
+						throw new CensusAnalyserException("Wrong class type",
+								CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM);
+				}
 				noOfEntries++;
 			}
 		} catch (FileNotFoundException e) {
