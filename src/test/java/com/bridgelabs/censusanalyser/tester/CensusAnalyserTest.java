@@ -14,7 +14,8 @@ public class CensusAnalyserTest {
 	private static final String INDIA_CENSUS_CSV_FILE_PATH = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCensusData.csv";
 	private static final String WRONG_CSV_FILE_PATH = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCensusDataOne.csv";
 	private static final String INDIAN_STATECODES_CSVFILE = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCode.csv";
-	private static final String INDIAN_CENSUS_WRONG_DELIMITER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\InidaStateCensusFaultDelimiter.txt";
+	private static final String INDIAN_CENSUS_WRONG_DELIMITER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\InidaStateCensusFaultDelimiter.csv";
+	private static final String INDIAN_CENSUS_WRONG_HEADER = "D:\\AssignmentBridgeLabs\\Indian-States-Census-Analyser\\src\\main\\resources\\IndiaStateCensusWrongHeader.csv";
 
 	@Test
 	public void givenIndianCensusCSVFile_ShouldReturnCorrectEntries() {
@@ -57,8 +58,19 @@ public class CensusAnalyserTest {
 			CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
 			censusAnalyserMain.loadIndiaCensusData(INDIAN_CENSUS_WRONG_DELIMITER);
 		} catch (CensusAnalyserException e) {
-			Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_TYPE_PROBLEM, e.type);
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMITER_PROBLEM, e.type);
 			LOGGER.info("Test performed for given correct CSV file but incorrect delimiter");
+		}
+	}
+
+	@Test
+	public void GivenTheStateCensusCsvFile_WhenCorrect_ButIncorrectHeader_ShouldThrowCensusAnalyserException() {
+		try {
+			CensusAnalyserMain censusAnalyserMain = new CensusAnalyserMain();
+			censusAnalyserMain.loadIndiaCensusData(INDIAN_CENSUS_WRONG_HEADER);
+		} catch (CensusAnalyserException e) {
+			Assert.assertEquals(CensusAnalyserException.ExceptionType.HEADER_PROBLEM, e.type);
+			LOGGER.info("Test performed for given correct CSV file but incorrect header");
 		}
 	}
 }
